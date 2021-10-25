@@ -1,0 +1,9 @@
+WS=1
+DIGIT=2
+OTP=3
+SETUP=4
+LOGIN=5
+VERIFY=6
+'setup'=4
+'login'=5
+'verify'=6

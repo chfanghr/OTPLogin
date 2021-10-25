@@ -1,0 +1,11 @@
+name: OTPLogin
+version: '${project.version}'
+main: site.urandom.otplogin.OTPLogin
+api-version: 1.17
+prefix: OTPLogin
+
+commands:
+  otp:
+    ermission: site.urandom.otplogin.login
+  otpapprove:
+    ermission: site.urandom.otplogin.approve
