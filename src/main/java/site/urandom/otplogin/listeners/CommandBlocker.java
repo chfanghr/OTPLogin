@@ -9,6 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
@@ -43,14 +44,14 @@ public class CommandBlocker implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerDisconnect(PlayerQuitEvent event){
+        affectedPlayers.remove(event.getPlayer());
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event){
         affectedPlayers.add(event.getPlayer());
         event.getPlayer().sendMessage(ChatColor.YELLOW + "Please login using /otp login <code>");
-        Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-            @Override
-            public void run() {
-                event.getPlayer().setGameMode(GameMode.SPECTATOR);
-            }
-        }, 3L);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> event.getPlayer().setGameMode(GameMode.SPECTATOR), 3L);
     }
 }
